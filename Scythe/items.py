@@ -13,7 +13,7 @@ from scrapy.loader.processors import TakeFirst
 #     # name = scrapy.Field()
 #     pass
 
-
+# Enmax item
 class Enmax_Item(scrapy.Item):
     # id = scrapy.Field(output_processor=TakeFirst())
     load = scrapy.Field(output_processor=TakeFirst())
