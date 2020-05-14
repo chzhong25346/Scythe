@@ -19,3 +19,10 @@ class Enmax_Item(scrapy.Item):
     load = scrapy.Field(output_processor=TakeFirst())
     date = scrapy.Field(output_processor=TakeFirst())
     # tou = scrapy.Field(output_processor=TakeFirst())
+
+# ShpgxLng item
+class ShpgxLng_Item(scrapy.Item):
+    date = scrapy.Field(output_processor=TakeFirst())
+    rmb_ton = scrapy.Field(output_processor=TakeFirst())
+    dollar_mmbtu = scrapy.Field(output_processor=TakeFirst())
+    rmb_gj = scrapy.Field(output_processor=TakeFirst())

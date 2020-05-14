@@ -28,3 +28,12 @@ class Enmax_load(DeclarativeBase):
     # tou = Column('tou', String(10), nullable=False)
     date = Column('date', DateTime, unique=True, nullable=False, primary_key=True)
     load = Column('load', Integer, nullable=True)
+
+
+# Shpgx LNG Models
+class ShpgxLng_load(DeclarativeBase):
+    __tablename__ = 'shpgxlng_load'
+    date = Column('date', DateTime, unique=True, nullable=False, primary_key=True)
+    rmb_ton = Column('rmb_ton', Float, nullable=True)
+    dollar_mmbtu = Column('dollar_mmbtu', Float, nullable=True)
+    rmb_gj = Column('rmb_gj', Float, nullable=True)

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
-from Scythe.items import Enmax_Item
+from Scythe.items import Enmax_Item, ShpgxLng_Item
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import exc
-from .models import db_connect, create_table, Enmax_load
-from .mapping import map_enmax_load
+from .models import db_connect, create_table, Enmax_load, ShpgxLng_load
+from .mapping import map_enmax_load, map_shpgxLng_load
 logger = logging.getLogger('Pipeline')
 
 
@@ -38,6 +38,23 @@ class DBPipeline(object):
                 s.rollback()
                 logger.error("DB failure: %s" % str(item))
                 # raise
+            finally:
+                s.close()
+            return item
+
+
+        # Shpgx LNG
+        if isinstance(item, ShpgxLng_Item):
+            s = self.get_Db('learning')
+            load = map_shpgxLng_load(item)
+            try:
+                s.add(load)
+                s.commit()
+            except exc.IntegrityError:
+                s.rollback()
+            except:
+                s.rollback()
+                logger.error("DB failure: %s" % str(item))
             finally:
                 s.close()
             return item
