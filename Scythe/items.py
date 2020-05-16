@@ -1,17 +1,6 @@
 # -*- coding: utf-8 -*-
-
-# Define here the models for your scraped items
-#
-# See documentation in:
-# https://docs.scrapy.org/en/latest/topics/items.html
-
 import scrapy
 from scrapy.loader.processors import TakeFirst
-
-# class ScytheItem(scrapy.Item):
-#     # define the fields for your item here like:
-#     # name = scrapy.Field()
-#     pass
 
 # Enmax item
 class Enmax_Item(scrapy.Item):
@@ -20,9 +9,23 @@ class Enmax_Item(scrapy.Item):
     date = scrapy.Field(output_processor=TakeFirst())
     # tou = scrapy.Field(output_processor=TakeFirst())
 
+
 # ShpgxLng item
 class ShpgxLng_Item(scrapy.Item):
     date = scrapy.Field(output_processor=TakeFirst())
     rmb_ton = scrapy.Field(output_processor=TakeFirst())
     dollar_mmbtu = scrapy.Field(output_processor=TakeFirst())
     rmb_gj = scrapy.Field(output_processor=TakeFirst())
+
+
+# PSAC item
+class Psac_Item(scrapy.Item):
+    aeco = scrapy.Field(output_processor=TakeFirst())
+    station2 = scrapy.Field(output_processor=TakeFirst())
+    dawn = scrapy.Field(output_processor=TakeFirst())
+    henry_aeco_diff = scrapy.Field(output_processor=TakeFirst())
+    henry = scrapy.Field(output_processor=TakeFirst())
+    wti = scrapy.Field(output_processor=TakeFirst())
+    wcs = scrapy.Field(output_processor=TakeFirst())
+    wti_wcs_diff = scrapy.Field(output_processor=TakeFirst())
+    date = scrapy.Field(output_processor=TakeFirst())

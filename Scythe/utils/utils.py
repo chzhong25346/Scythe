@@ -9,3 +9,15 @@ def is_between(time, time_range):
 
 def gen_id(string):
     return int(hashlib.md5(str.encode(string)).hexdigest(), 16)
+
+
+def get_cell(response, keyword, convert=True):
+    result = response.xpath('//td[contains(text(), $keyword)]/following-sibling::td/text()', keyword=keyword).extract()
+    if keyword in "Can-US Exchange Rate (US ¢)":
+        result = result[0]
+    else:
+        result = result[1]
+    if convert == False:
+        return result
+    else:
+        return float(result)

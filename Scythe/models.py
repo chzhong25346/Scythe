@@ -37,3 +37,17 @@ class ShpgxLng_load(DeclarativeBase):
     rmb_ton = Column('rmb_ton', Float, nullable=True)
     dollar_mmbtu = Column('dollar_mmbtu', Float, nullable=True)
     rmb_gj = Column('rmb_gj', Float, nullable=True)
+
+
+# Psac Models
+class Psac(DeclarativeBase):
+    __tablename__ = 'psac'
+    date = Column('date', DateTime, unique=True, nullable=False, primary_key=True)
+    aeco = Column('aeco', Float, nullable=True)
+    station2 = Column('station2', Float, nullable=True)
+    dawn = Column('dawn', Float, nullable=True)
+    henry_aeco_diff = Column('henry_aeco_diff', Float, nullable=True)
+    henry = Column('henry', Float, nullable=True)
+    wti = Column('wti', Float, nullable=True)
+    wcs = Column('wcs', Float, nullable=True)
+    wti_wcs_diff = Column('wti_wcs_diff', Float, nullable=True)

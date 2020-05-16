@@ -26,7 +26,7 @@ class ShpgxLngSpider(scrapy.Spider):
 
 
     def parse(self, response):
-        data = json.loads(response.body)
+        data = json.loads(response.body.decode('utf-8'))
         for i in data['root']:
             date = datetime.datetime.strptime(i['strdate'], '%Y-%m-%d')
             _PRICE = i['tradeprice'].split(',')
