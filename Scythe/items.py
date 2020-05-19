@@ -29,3 +29,30 @@ class Psac_Item(scrapy.Item):
     wcs = scrapy.Field(output_processor=TakeFirst())
     wti_wcs_diff = scrapy.Field(output_processor=TakeFirst())
     date = scrapy.Field(output_processor=TakeFirst())
+
+
+# BOE US Rig item
+class Boe_US_rig_Item(scrapy.Item):
+    date = scrapy.Field(output_processor=TakeFirst())
+    total = scrapy.Field(output_processor=TakeFirst())
+    oil = scrapy.Field(output_processor=TakeFirst())
+    gas = scrapy.Field(output_processor=TakeFirst())
+    eagle_ford = scrapy.Field(output_processor=TakeFirst())
+    appalachian = scrapy.Field(output_processor=TakeFirst())
+    permian = scrapy.Field(output_processor=TakeFirst())
+    williston = scrapy.Field(output_processor=TakeFirst())
+    dj_niobrara = scrapy.Field(output_processor=TakeFirst())
+    other_basins = scrapy.Field(output_processor=TakeFirst())
+
+
+# BOE CA Rig item
+class Boe_CA_rig_Item(scrapy.Item):
+    date = scrapy.Field(output_processor=TakeFirst())
+    total = scrapy.Field(output_processor=TakeFirst())
+    oil = scrapy.Field(output_processor=TakeFirst())
+    gas = scrapy.Field(output_processor=TakeFirst())
+    alberta = scrapy.Field(output_processor=TakeFirst())
+    bc = scrapy.Field(output_processor=TakeFirst())
+    saskatchewan = scrapy.Field(output_processor=TakeFirst())
+    manitoba = scrapy.Field(output_processor=TakeFirst())
+    other_provinces = scrapy.Field(output_processor=TakeFirst())

@@ -51,3 +51,32 @@ class Psac(DeclarativeBase):
     wti = Column('wti', Float, nullable=True)
     wcs = Column('wcs', Float, nullable=True)
     wti_wcs_diff = Column('wti_wcs_diff', Float, nullable=True)
+
+
+# Boe_US_rig
+class Boe_US_rig(DeclarativeBase):
+    __tablename__ = 'boe_us_rig'
+    date = Column('date', DateTime, unique=True, nullable=False, primary_key=True)
+    total = Column('total', Integer, nullable=True)
+    eagle_ford = Column('eagle_ford', Integer, nullable=True)
+    appalachian = Column('appalachian', Integer, nullable=True)
+    permian = Column('permian', Integer, nullable=True)
+    williston = Column('williston', Integer, nullable=True)
+    dj_niobrara = Column('dj_niobrara', Integer, nullable=True)
+    other_basins = Column('other_basins', Integer, nullable=True)
+    oil = Column('oil', Integer, nullable=True)
+    gas = Column('gas', Integer, nullable=True)
+
+
+# Boe_CA_rig
+class Boe_CA_rig(DeclarativeBase):
+    __tablename__ = 'boe_ca_rig'
+    date = Column('date', DateTime, unique=True, nullable=False, primary_key=True)
+    total = Column('total', Integer, nullable=True)
+    oil = Column('oil', Integer, nullable=True)
+    gas = Column('gas', Integer, nullable=True)
+    alberta = Column('alberta', Integer, nullable=True)
+    bc = Column('bc', Integer, nullable=True)
+    saskatchewan = Column('saskatchewan', Integer, nullable=True)
+    manitoba = Column('manitoba', Integer, nullable=True)
+    other_provinces = Column('other_provinces', Integer, nullable=True)

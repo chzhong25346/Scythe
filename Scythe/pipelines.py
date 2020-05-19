@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
-from Scythe.items import Enmax_Item, ShpgxLng_Item, Psac_Item
+from Scythe.items import Enmax_Item, ShpgxLng_Item, Psac_Item, Boe_US_rig_Item, Boe_CA_rig_Item
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import exc
-from .models import db_connect, create_table, Enmax_load, ShpgxLng_load, Psac
-from .mapping import map_enmax_load, map_shpgxLng_load, map_psac
+from .models import db_connect, create_table, Enmax_load, ShpgxLng_load, Psac, Boe_US_rig, Boe_CA_rig
+from .mapping import map_enmax_load, map_shpgxLng_load, map_psac, map_boe_us_rig, map_boe_ca_rig
 logger = logging.getLogger('Pipeline')
 
 
@@ -42,9 +42,8 @@ class DBPipeline(object):
                 s.close()
             return item
 
-
         # Shpgx LNG
-        if isinstance(item, ShpgxLng_Item):
+        elif isinstance(item, ShpgxLng_Item):
             s = self.get_Db('learning')
             load = map_shpgxLng_load(item)
             try:
@@ -59,9 +58,8 @@ class DBPipeline(object):
                 s.close()
             return item
 
-
         # PSAC
-        if isinstance(item, Psac_Item):
+        elif isinstance(item, Psac_Item):
             s = self.get_Db('learning')
             data = map_psac(item)
             try:
@@ -73,5 +71,37 @@ class DBPipeline(object):
                 s.rollback()
                 logger.error("DB failure: %s" % str(item))
             finally:
-                s.close()        
+                s.close()
+            return item
+
+        # Boe_US_rig
+        elif isinstance(item, Boe_US_rig_Item):
+            s = self.get_Db('learning')
+            data = map_boe_us_rig(item)
+            try:
+                s.add(data)
+                s.commit()
+            except exc.IntegrityError:
+                s.rollback()
+            except:
+                s.rollback()
+                logger.error("DB failure: %s" % str(item))
+            finally:
+                s.close()
+            return item
+
+        # Boe_CA_rig
+        elif isinstance(item, Boe_CA_rig_Item):
+            s = self.get_Db('learning')
+            data = map_boe_ca_rig(item)
+            try:
+                s.add(data)
+                s.commit()
+            except exc.IntegrityError:
+                s.rollback()
+            except:
+                s.rollback()
+                logger.error("DB failure: %s" % str(item))
+            finally:
+                s.close()
             return item

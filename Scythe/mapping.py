@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from .models import Enmax_load, ShpgxLng_load, Psac
+from .models import Enmax_load, ShpgxLng_load, Psac, Boe_US_rig, Boe_CA_rig
 # from .utils.utils import gen_id
 
 
@@ -32,4 +32,33 @@ def map_psac(item):
     load.wcs = item['wcs']
     load.wti_wcs_diff = item['wti_wcs_diff']
     load.date = item['date']
+    return load
+
+
+def map_boe_us_rig(item):
+    load = Boe_US_rig()
+    load.date = item['date']
+    load.total = item['total']
+    load.oil = item['oil']
+    load.gas = item['gas']
+    load.eagle_ford = item['eagle_ford']
+    load.appalachian = item['appalachian']
+    load.permian = item['permian']
+    load.williston = item['williston']
+    load.dj_niobrara = item['dj_niobrara']
+    load.other_basins = item['other_basins']
+    return load
+
+
+def map_boe_ca_rig(item):
+    load = Boe_CA_rig()
+    load.date = item['date']
+    load.total = item['total']
+    load.oil = item['oil']
+    load.gas = item['gas']
+    load.alberta = item['alberta']
+    load.bc = item['bc']
+    load.saskatchewan = item['saskatchewan']
+    load.manitoba = item['manitoba']
+    load.other_provinces = item['other_provinces']
     return load
