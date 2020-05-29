@@ -23,6 +23,7 @@ def map_shpgxLng_load(item):
 
 def map_psac(item):
     load = Psac()
+    load.date = item['date']
     load.aeco = item['aeco']
     load.station2 = item['station2']
     load.dawn = item['dawn']
@@ -31,7 +32,13 @@ def map_psac(item):
     load.wti = item['wti']
     load.wcs = item['wcs']
     load.wti_wcs_diff = item['wti_wcs_diff']
-    load.date = item['date']
+    load.sp_500_energy = item['sp_500_energy']
+    load.amex_oil = item['amex_oil']
+    load.tsx_energy = item['tsx_energy']
+    load.tsx_og_producers = item['tsx_og_producers']
+    load.tsx_og_services = item['tsx_og_services']
+    load.ca_us_ex_rate = item['ca_us_ex_rate']
+    load.tenyr_cdn_gov_bond_yield = item['tenyr_cdn_gov_bond_yield']
     return load
 
 

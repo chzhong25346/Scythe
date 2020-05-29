@@ -52,6 +52,14 @@ class Psac(DeclarativeBase):
     wcs = Column('wcs', Float, nullable=True)
     wti_wcs_diff = Column('wti_wcs_diff', Float, nullable=True)
 
+    sp_500_energy = Column('sp_500_energy', Float, nullable=True)
+    amex_oil = Column('amex_oil', Float, nullable=True)
+    tsx_energy = Column('tsx_energy', Float, nullable=True)
+    tsx_og_producers = Column('tsx_og_producers', Float, nullable=True)
+    tsx_og_services = Column('tsx_og_services', Float, nullable=True)
+    ca_us_ex_rate = Column('ca_us_ex_rate', Float, nullable=True)
+    tenyr_cdn_gov_bond_yield = Column('tenyr_cdn_gov_bond_yield', Float, nullable=True)
+
 
 # Boe_US_rig
 class Boe_US_rig(DeclarativeBase):

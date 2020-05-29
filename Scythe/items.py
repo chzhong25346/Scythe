@@ -20,6 +20,7 @@ class ShpgxLng_Item(scrapy.Item):
 
 # PSAC item
 class Psac_Item(scrapy.Item):
+    date = scrapy.Field(output_processor=TakeFirst())
     aeco = scrapy.Field(output_processor=TakeFirst())
     station2 = scrapy.Field(output_processor=TakeFirst())
     dawn = scrapy.Field(output_processor=TakeFirst())
@@ -28,7 +29,14 @@ class Psac_Item(scrapy.Item):
     wti = scrapy.Field(output_processor=TakeFirst())
     wcs = scrapy.Field(output_processor=TakeFirst())
     wti_wcs_diff = scrapy.Field(output_processor=TakeFirst())
-    date = scrapy.Field(output_processor=TakeFirst())
+    sp_500_energy = scrapy.Field(output_processor=TakeFirst())
+    amex_oil = scrapy.Field(output_processor=TakeFirst())
+    tsx_energy = scrapy.Field(output_processor=TakeFirst())
+    tsx_og_producers = scrapy.Field(output_processor=TakeFirst())
+    tsx_og_services = scrapy.Field(output_processor=TakeFirst())
+    ca_us_ex_rate = scrapy.Field(output_processor=TakeFirst())
+    tenyr_cdn_gov_bond_yield = scrapy.Field(output_processor=TakeFirst())
+
 
 
 # BOE US Rig item

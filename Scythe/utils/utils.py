@@ -11,12 +11,9 @@ def gen_id(string):
     return int(hashlib.md5(str.encode(string)).hexdigest(), 16)
 
 
-def get_cell(response, keyword, convert=True):
+def get_cell(response, keyword, convert=True, cell_num=1):
     result = response.xpath('//td[contains(text(), $keyword)]/following-sibling::td/text()', keyword=keyword).extract()
-    if keyword in "Can-US Exchange Rate (US ¢)":
-        result = result[0]
-    else:
-        result = result[1]
+    result = result[cell_num]
     if convert == False:
         return result
     else:
