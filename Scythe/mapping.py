@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from .models import Enmax_load, ShpgxLng_load, Psac, Boe_US_rig, Boe_CA_rig
+from .models import Enmax_load, ShpgxLng_load, Psac, Boe_US_rig, Boe_CA_rig, CIBC_metals
 # from .utils.utils import gen_id
 
 
@@ -68,4 +68,14 @@ def map_boe_ca_rig(item):
     load.saskatchewan = item['saskatchewan']
     load.manitoba = item['manitoba']
     load.other_provinces = item['other_provinces']
+    return load
+
+
+def map_cibc_metals(item):
+    load = CIBC_metals()
+    load.date = item['date']
+    load.gbar_1oz = item['gbar_1oz']
+    load.gcoin_1oz = item['gcoin_1oz']
+    load.sbar_100oz = item['sbar_100oz']
+    load.scoin_1oz = item['scoin_1oz']
     return load

@@ -64,3 +64,12 @@ class Boe_CA_rig_Item(scrapy.Item):
     saskatchewan = scrapy.Field(output_processor=TakeFirst())
     manitoba = scrapy.Field(output_processor=TakeFirst())
     other_provinces = scrapy.Field(output_processor=TakeFirst())
+
+
+# CIBC precious metal item
+class CIBC_metals_Item(scrapy.Item):
+    date = scrapy.Field(output_processor=TakeFirst())
+    gbar_1oz = scrapy.Field(output_processor=TakeFirst())
+    gcoin_1oz = scrapy.Field(output_processor=TakeFirst())
+    sbar_100oz = scrapy.Field(output_processor=TakeFirst())
+    scoin_1oz = scrapy.Field(output_processor=TakeFirst())

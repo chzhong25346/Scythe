@@ -88,3 +88,13 @@ class Boe_CA_rig(DeclarativeBase):
     saskatchewan = Column('saskatchewan', Integer, nullable=True)
     manitoba = Column('manitoba', Integer, nullable=True)
     other_provinces = Column('other_provinces', Integer, nullable=True)
+
+
+# CIBC Metals Models
+class CIBC_metals(DeclarativeBase):
+    __tablename__ = 'cibc_metals'
+    date = Column('date', DateTime, unique=True, nullable=False, primary_key=True)
+    gbar_1oz = Column('gbar_1oz', Float, nullable=True)
+    gcoin_1oz = Column('gcoin_1oz', Float, nullable=True)
+    sbar_100oz = Column('sbar_100oz', Float, nullable=True)
+    scoin_1oz = Column('scoin_1oz', Float, nullable=True)

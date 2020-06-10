@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
-from Scythe.items import Enmax_Item, ShpgxLng_Item, Psac_Item, Boe_US_rig_Item, Boe_CA_rig_Item
+from Scythe.items import Enmax_Item, ShpgxLng_Item, Psac_Item, Boe_US_rig_Item, Boe_CA_rig_Item, CIBC_metals_Item
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import exc
-from .models import db_connect, create_table, Enmax_load, ShpgxLng_load, Psac, Boe_US_rig, Boe_CA_rig
-from .mapping import map_enmax_load, map_shpgxLng_load, map_psac, map_boe_us_rig, map_boe_ca_rig
+from .models import db_connect, create_table, Enmax_load, ShpgxLng_load, Psac, Boe_US_rig, Boe_CA_rig, CIBC_metals
+from .mapping import map_enmax_load, map_shpgxLng_load, map_psac, map_boe_us_rig, map_boe_ca_rig, map_cibc_metals
 logger = logging.getLogger('Pipeline')
 
 
@@ -94,6 +94,22 @@ class DBPipeline(object):
         elif isinstance(item, Boe_CA_rig_Item):
             s = self.get_Db('learning')
             data = map_boe_ca_rig(item)
+            try:
+                s.add(data)
+                s.commit()
+            except exc.IntegrityError:
+                s.rollback()
+            except:
+                s.rollback()
+                logger.error("DB failure: %s" % str(item))
+            finally:
+                s.close()
+            return item
+
+        # CIBC metals
+        elif isinstance(item, CIBC_metals_Item):
+            s = self.get_Db('learning')
+            data = map_cibc_metals(item)
             try:
                 s.add(data)
                 s.commit()
