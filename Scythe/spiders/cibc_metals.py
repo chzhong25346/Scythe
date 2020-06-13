@@ -13,7 +13,7 @@ class CibcMetalsSpider(scrapy.Spider):
     start_urls = ['https://www.preciousmetals.cibc.com/']
     gbar_1oz_url = urljoin(start_urls[0], 'gold-GB1Ecom.aspx')
     gcoin_1oz_url = urljoin(start_urls[0], '3bd09c35-a09d-4feb-bb55-0076ac8692fa.aspx')
-    sbar_100oz_url = urljoin(start_urls[0], '72607555-cf7d-46c8-9587-40d42f31c0b1.aspx')
+    sbar_100oz_url = urljoin(start_urls[0], 'f0be65b0-2e41-40e1-b1a9-a0c37b2eb07f.aspx')
     scoin_1oz_url = urljoin(start_urls[0], 'e084941a-39ec-4a44-9c5d-5b9c55cd5ae7.aspx')
     items = {}
 
