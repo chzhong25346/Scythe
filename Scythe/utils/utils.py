@@ -14,7 +14,10 @@ def gen_id(string):
 def get_cell(response, keyword, convert=True, cell_num=1):
     result = response.xpath('//td[contains(text(), $keyword)]/following-sibling::td/text()', keyword=keyword).extract()
     result = result[cell_num]
-    if convert == False:
-        return result
-    else:
-        return float(result)
+    try:
+        if convert == False:
+            return result
+        else:
+            return float(result)
+    except:
+        return 0

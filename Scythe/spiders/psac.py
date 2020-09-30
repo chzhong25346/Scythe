@@ -51,4 +51,5 @@ class PsacSpider(scrapy.Spider):
         l.add_value('tsx_og_services', str(tsx_og_services))
         l.add_value('ca_us_ex_rate', str(ca_us_ex_rate))
         l.add_value('tenyr_cdn_gov_bond_yield', str(tenyr_cdn_gov_bond_yield))
+
         return l.load_item()
