@@ -22,7 +22,7 @@ class PsacSpider(scrapy.Spider):
         aeco = round(get_cell(response, "Daily Spot AECO")*ex_rate,2)
         station2 = round(get_cell(response, "Station 2")*ex_rate,2)
         dawn = round(get_cell(response, "Dawn, ON")*ex_rate,2)
-        henry_aeco_diff = get_cell(response, "Dly Spot Diff (H.Hub-AECO)")
+        henry_aeco_diff = get_cell(response, "Daily Spot Diff (H.Hub-AECO)")
         henry = get_cell(response, "Daily Spot Henry Hub")
         wti = get_cell(response, "Daily Spot WTI @Cushing")
         wcs = get_cell(response, "WCS @Hardisty")
