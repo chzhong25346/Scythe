@@ -37,13 +37,13 @@ class CibcMetalsSpider(scrapy.Spider):
 
 
     def parse_sbar_100oz(self, response):
-        price = self.parse_price(response, pname='Silver Maple Leaf Coin (Random Year)')
+        price = self.parse_price(response, pname='100 oz Silver Bar (RCM)')
         self.items['sbar_100oz'] = price
         yield FormRequest(self.scoin_1oz_url, method='GET', meta=self.items, dont_filter=True, callback=self.parse_scoin_1oz)
 
 
     def parse_scoin_1oz(self, response):
-        price = self.parse_price(response, pname='100 oz Silver Bar (RCM)')
+        price = self.parse_price(response, pname='Silver Maple Leaf Coin (Random Year)')
         l = ItemLoader(item=CIBC_metals_Item(), response=response)
         l.add_value('date', response.meta.get('date'))
         l.add_value('gbar_1oz', response.meta.get('gbar_1oz'))
