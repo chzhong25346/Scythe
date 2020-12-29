@@ -2,46 +2,48 @@
 import scrapy
 import datetime
 import re
+import json
 from urllib.parse import urljoin
 from Scythe.items import CIBC_metals_Item
-from scrapy.http import Request
+from scrapy.http import Request, FormRequest
 from scrapy.loader import ItemLoader
 
 class CibcMetalsSpider(scrapy.Spider):
     name = 'cibc_metals'
     allowed_domains = ['www.preciousmetals.cibc.com']
     start_urls = ['https://www.preciousmetals.cibc.com/']
-    gbar_1oz_url = urljoin(start_urls[0], 'gold-GB1Ecom.aspx')
-    gcoin_1oz_url = urljoin(start_urls[0], '3bd09c35-a09d-4feb-bb55-0076ac8692fa.aspx')
-    sbar_100oz_url = urljoin(start_urls[0], 'f0be65b0-2e41-40e1-b1a9-a0c37b2eb07f.aspx')
-    scoin_1oz_url = urljoin(start_urls[0], 'e084941a-39ec-4a44-9c5d-5b9c55cd5ae7.aspx')
+    gbar_1oz_url = urljoin(start_urls[0], 'ItemSelection/GetItems/Ecom_Gold/0/10/Popularity')
+    gcoin_1oz_url = urljoin(start_urls[0], 'ItemSelection/GetItems/Ecom_Gold/0/10/Popularity')
+    sbar_100oz_url = urljoin(start_urls[0], 'ItemSelection/GetItems/Ecom_Silver/0/10/Popularity')
+    scoin_1oz_url = urljoin(start_urls[0], 'ItemSelection/GetItems/Ecom_Silver/0/10/Popularity')
     items = {}
 
     def parse(self, response):
         date = datetime.datetime.now().strftime("%Y-%m-%d")
         self.items['date'] = date
-        yield Request(self.gbar_1oz_url, meta=self.items, callback=self.parse_gbar_1oz)
+        yield FormRequest(url=self.gbar_1oz_url, method='GET', meta=self.items, callback=self.parse_gbar_1oz)
 
 
     def parse_gbar_1oz(self, response):
-        price = self.parse_price(response)
-        # self.items['gbar_1oz'] = price
+        price = self.parse_price(response, pname='1 oz Gold Bar')
         self.items['gbar_1oz'] = price
-        yield Request(self.gcoin_1oz_url, meta=self.items, callback=self.parse_gcoin_1oz)
+        yield FormRequest(self.gcoin_1oz_url, method='GET', meta=self.items, dont_filter=True, callback=self.parse_gcoin_1oz)
+
 
     def parse_gcoin_1oz(self, response):
-        price = self.parse_price(response)
+        price = self.parse_price(response, pname='1 oz Gold Maple Leaf Coin (Random Year)')
         self.items['gcoin_1oz'] = price
-        yield Request(self.sbar_100oz_url, meta=self.items, callback=self.parse_sbar_100oz)
+        yield FormRequest(self.sbar_100oz_url, method='GET', meta=self.items, dont_filter=True, callback=self.parse_sbar_100oz)
+
 
     def parse_sbar_100oz(self, response):
-        price = self.parse_price(response)
+        price = self.parse_price(response, pname='Silver Maple Leaf Coin (Random Year)')
         self.items['sbar_100oz'] = price
-        yield Request(self.scoin_1oz_url, meta=self.items, callback=self.parse_scoin_1oz)
+        yield FormRequest(self.scoin_1oz_url, method='GET', meta=self.items, dont_filter=True, callback=self.parse_scoin_1oz)
+
 
     def parse_scoin_1oz(self, response):
-        price = self.parse_price(response)
-
+        price = self.parse_price(response, pname='100 oz Silver Bar (RCM)')
         l = ItemLoader(item=CIBC_metals_Item(), response=response)
         l.add_value('date', response.meta.get('date'))
         l.add_value('gbar_1oz', response.meta.get('gbar_1oz'))
@@ -50,7 +52,11 @@ class CibcMetalsSpider(scrapy.Spider):
         l.add_value('scoin_1oz', price)
         return l.load_item()
 
-    def parse_price(self, response):
-        price = response.xpath('//span[@id="ctl00_ContentRegion_Price"]/text()').extract_first()
-        price = re.sub('[,$,CAD, ]', '', price)
-        return price
+
+    def parse_price(self, response, pname):
+        # price = response.xpath('//span[@id="ctl00_ContentRegion_Pric"]/text()').extract_first()
+        # price = re.sub('[,$,CAD, ]', '', price)
+        data = json.loads(response.body.decode('utf-8'))
+        for i in data:
+            if i['Name'] == pname:
+                return i['Price']
