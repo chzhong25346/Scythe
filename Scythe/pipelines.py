@@ -62,17 +62,17 @@ class DBPipeline(object):
         elif isinstance(item, Psac_Item):
             s = self.get_Db('learning')
             data = map_psac(item)
-            try:
-                s.add(data)
-                s.commit()
-            except exc.IntegrityError:
-                s.rollback()
-            except:
-                s.rollback()
-                logger.error("DB failure: %s" % str(item))
-            finally:
-                s.close()
-            return item
+            # try:
+            s.add(data)
+            s.commit()
+            # except exc.IntegrityError:
+            #     s.rollback()
+            # except:
+            #     s.rollback()
+            #     logger.error("DB failure: %s" % str(item))
+            # finally:
+            #     s.close()
+            # return item
 
         # Boe_US_rig
         elif isinstance(item, Boe_US_rig_Item):

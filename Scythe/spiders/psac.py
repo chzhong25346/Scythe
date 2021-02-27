@@ -16,8 +16,14 @@ class PsacSpider(scrapy.Spider):
         Request(self.start_urls[0])
 
     # def parse_url(self, response):
-        date =  response.xpath('//td/strong/text()').re("^\d+\/\d+\/\d+$")[2]
+        now = datetime.datetime.now()
+        thisyear = now.year
+        # date =  response.xpath('//td/strong/text()').re("^\d+\/\d+\/\d+$")[2]
+        date = response.xpath('//td/strong/text()').re("^\d+\-.*$")[0]
+        date = date + "-" + str(thisyear)
+        date = datetime.datetime.strptime(date, '%d-%b-%Y').strftime('%m/%d/%y')
         date = datetime.datetime.strptime(date, '%m/%d/%y')
+
         ex_rate = get_cell(response, "Can-US Exch. Rate (US ¢)", cell_num=0)/100
         aeco = round(get_cell(response, "Daily Spot AECO")*ex_rate,2)
         station2 = round(get_cell(response, "Station 2")*ex_rate,2)

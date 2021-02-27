@@ -18,6 +18,7 @@ def get_cell(response, keyword, convert=True, cell_num=1):
         if convert == False:
             return result
         else:
+            result = result.strip().replace(',', '')
             return float(result)
     except:
         return 0
